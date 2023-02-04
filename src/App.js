@@ -52,10 +52,11 @@ function App() {
 
     // Upload image to IPFS (NFT.Storage)
     const url = await uploadImage(imageData)
+    console.log("url",url)
 
     // Mint NFT
     await mintImage(url)
-
+    
     setIsWaiting(false)
     setMessage("")
   }
@@ -109,15 +110,16 @@ function App() {
     setURL(url)
 
     return url
-  }
 
+  }
   const mintImage = async (tokenURI) => {
     setMessage("Waiting for Mint...")
 
     const signer = await provider.getSigner()
-    const transaction = await nft.connect(signer).mint(tokenURI, { value: ethers.utils.parseUnits("1", "ether") })
+    const transaction = await nft.connect(signer).mint(tokenURI, { value: ethers.utils.parseUnits("0.1", "ether") })
     await transaction.wait()
   }
+
 
   useEffect(() => {
     loadBlockchainData()
@@ -128,6 +130,8 @@ function App() {
       <Navigation account={account} setAccount={setAccount} />
 
       <div className='form'>
+       
+        
         <form onSubmit={submitHandler}>
           <input type="text" placeholder="Create a name..." onChange={(e) => { setName(e.target.value) }} />
           <input type="text" placeholder="Create a description..." onChange={(e) => setDescription(e.target.value)} />
@@ -150,8 +154,10 @@ function App() {
 
       {!isWaiting && url && (
         <p>
-          View&nbsp;<a href={url} target="_blank" rel="noreferrer">Metadata</a>
+          &nbsp;<a href={url} target="_blank" rel="noreferrer">Powered By Stable Diffusion v2 metadata</a>
         </p>
+        
+        
       )}
     </div>
   );

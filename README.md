@@ -35,3 +35,10 @@ $ npx hardhat run ./scripts/deploy.js --GOERLI
 
 ### Start frontend
 npm run start
+
+
+更新了智能合约
+添加了  新功能
+1.设定总数
+2.设定每个账户Mint数量
+3.设定了白名单系统
